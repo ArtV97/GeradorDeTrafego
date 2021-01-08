@@ -9,15 +9,14 @@ class System(Enum):
 
 
 class Estacao():
-    def __init__(self, system, user_agent, frequence, clock):
+    def __init__(self, system, user_agent, behavior):
         self.system = system
         if self.system is System.Windows:
             self.ttl = 128
         else:
             self.ttl = 64
         self.user_agent = user_agent
-        self.frequence = frequence
-        self.clock = clock
+        self.behavior = behavior
         self.ip = None
 
     def gerar_pacote(self):
@@ -38,8 +37,8 @@ class Estacao():
     ##                                                           flags='A') / getStr
     ##    send(req)
 
-    def saveReq(self, ipDest, ipOrig, ttlDif):
-        a = str(ipOrig) + " >> " + str(ipDest) + ";" + str(self.ttl - ttlDif) + ";\"" + self.user_agent + "\"\n"
-        f = open("demoSaida.txt", "a")
-        f.write(a)
-        f.close()
+    def saveReq(self, ipDest, ttlDif, arq):
+        a = self.ip + " >> " + str(ipDest) + ";" + str(self.ttl - ttlDif) + ";\"" + self.user_agent + "\"\n"
+        #f = open("demoSaida.txt", "a")
+        arq.write(a)
+        #f.close()
