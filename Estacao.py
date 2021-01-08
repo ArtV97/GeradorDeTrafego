@@ -39,7 +39,7 @@ class Estacao():
     ##    send(req)
 
     def saveReq(self, ipDest, ipOrig, ttlDif):
-        a = str(ipOrig) + " >> " + str(ipDest) + ";" + str(self.ttl - ttlDif) + ";\"" + self.user_agent + "\""
-        f = open("demoSaida.txt", "w")
+        a = str(ipOrig) + " >> " + str(ipDest) + ";" + str(self.ttl - ttlDif) + ";\"" + self.user_agent + "\"\n"
+        f = open("demoSaida.txt", "a")
         f.write(a)
         f.close()
