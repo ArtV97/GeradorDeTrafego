@@ -2,29 +2,6 @@ from Estacao import Estacao, System
 from Nat import Nat
 import json
 
-'''
-def inicializaRede(lines, layer = 0):
-    line = lines[layer].rstrip().split(" ")
-    rede = Nat()
-    nat_count = 0
-    for item in line:
-        if (item != "N"):
-            rede.add_item(Estacao(System(int(item))))
-        else:
-            nat_count += 1
-    for i in range(nat_count):
-        rede.add_item(inicializaRede(lines, layer + i + 1))
-    return rede
-with open("entrada.json", "r") as file:
-    var = file.readlines()
-rede = Nat()
-rede = inicializaRede(var)
-rede.percorre_rede()
-trafego = []
-rede.gerar_trafego(trafego)
-for pacote in trafego: print(pacote)
-'''
-
 def inicializaRede(obj_rede, ip):
     rede = Nat(ip)
     for obj in obj_rede:
@@ -41,9 +18,6 @@ with open('v0.json', 'r') as myfile:
 obj = json.loads(data)
 rede = inicializaRede(obj["rede"], obj["public Ip"])
 rede.percorre_rede()
-#trafego = []
-#rede.gerar_trafego(trafego)
-#for pacote in trafego: print(pacote)
 
 estacoes = []
 rede.retorna_estacoes(estacoes)
@@ -54,4 +28,3 @@ for clock in range(1, 10000):
             if (clock % estacao[0].behavior[i]["clock"] == 0):
                 estacao[0].saveReq(estacao[0].behavior[i]["dest"], estacao[1], arq)
 arq.close()
-#for estacao in estacoes: print("Sistema:" + estacao[0].system.name, "ttl:" + str(estacao[0].ttl - estacao[1]), "behavior:", estacao[0].behavior)
