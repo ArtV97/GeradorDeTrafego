@@ -12,7 +12,7 @@ def inicializaRede(obj_rede, ip):
     return rede
 
 # read json file
-with open('v0.json', 'r') as myfile:
+with open('topologia1.json', 'r') as myfile:
     data = myfile.read()
 
 obj = json.loads(data)
@@ -21,10 +21,9 @@ rede.percorre_rede()
 
 estacoes = []
 rede.retorna_estacoes(estacoes)
-arq = open("trafego.txt", "w")
-for clock in range(1, 10000):
-    for estacao in estacoes:
-        for i in range(len(estacao[0].behavior)):
-            if (clock % estacao[0].behavior[i]["clock"] == 0):
-                estacao[0].saveReq(estacao[0].behavior[i]["dest"], estacao[1], arq)
-arq.close()
+with open("trafego.txt", "w") as trafego:
+    for clock in range(1, 1000):
+        for estacao in estacoes:
+            for i in range(len(estacao[0].behavior)):
+                if (clock % estacao[0].behavior[i]["clock"] == 0):
+                    estacao[0].saveReq(estacao[0].behavior[i]["dest"], estacao[1], trafego)
