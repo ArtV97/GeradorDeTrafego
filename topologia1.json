@@ -1,0 +1,140 @@
+{
+  "public Ip": "179.181.250.21",
+  "rede": [
+    {
+      "Device": "N",
+      "id": "1",
+      "subrede": [
+        {
+          "Device": "2",
+          "id": "1.1",
+          "User Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1",
+          "behavior": [
+            {
+              "dest": "128.28.110.71",
+              "clock": 6
+            },
+            {
+              "dest": "215.144.163.221",
+              "clock": 8
+            }
+          ]
+        },
+        {
+          "Device": "N",
+          "id": "1.2",
+          "subrede": [
+            {
+              "Device": "1",
+              "id": "1.2.1",
+              "User Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246",
+              "behavior": [
+                {
+                  "dest": "206.160.74.213",
+                  "clock": 8
+                },
+                {
+                  "dest": "130.125.99.157",
+                  "clock": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Device": "N",
+          "id": "1.3",
+          "subrede": [
+            {
+              "Device": "2",
+              "id": "1.3.1",
+              "User Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1",
+              "behavior": [
+                {
+                  "dest": "87.208.74.154",
+                  "clock": 9
+                },
+                {
+                  "dest": "92.170.228.200",
+                  "clock": 5
+                },
+                {
+                  "dest": "108.96.103.167",
+                  "clock": 7
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Device": "2",
+          "id": "1.4",
+          "User Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1",
+          "behavior": [
+            {
+              "dest": "108.96.103.167",
+              "clock": 5
+            },
+            {
+              "dest": "220.171.28.94",
+              "clock": 5
+            },
+            {
+              "dest": "130.125.99.157",
+              "clock": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Device": "2",
+      "id": "2",
+      "User Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1",
+      "behavior": [
+        {
+          "dest": "215.144.163.221",
+          "clock": 8
+        },
+        {
+          "dest": "23.104.179.123",
+          "clock": 7
+        }
+      ]
+    },
+    {
+      "Device": "3",
+      "id": "3",
+      "User Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9",
+      "behavior": [
+        {
+          "dest": "16.221.8.140",
+          "clock": 9
+        },
+        {
+          "dest": "23.104.179.123",
+          "clock": 10
+        }
+      ]
+    },
+    {
+      "Device": "3",
+      "id": "4",
+      "User Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9",
+      "behavior": [
+        {
+          "dest": "206.160.74.213",
+          "clock": 7
+        },
+        {
+          "dest": "108.96.103.167",
+          "clock": 8
+        },
+        {
+          "dest": "16.221.8.140",
+          "clock": 6
+        }
+      ]
+    }
+  ]
+}

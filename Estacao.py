@@ -1,5 +1,6 @@
 ##from scapy.all import sr1, send, IP, TCP
 from enum import Enum
+from UserProfile import UserProfile
 
 
 class System(Enum):
@@ -17,6 +18,7 @@ class Estacao():
             self.ttl = 64
         self.user_agent = user_agent
         self.behavior = behavior
+        self.user_profile = UserProfile()
         self.ip = None
 
     def gerar_pacote(self):

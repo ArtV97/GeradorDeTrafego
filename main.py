@@ -17,13 +17,15 @@ with open('topologia1.json', 'r') as myfile:
 
 obj = json.loads(data)
 rede = inicializaRede(obj["rede"], obj["public Ip"])
-rede.percorre_rede()
+#rede.percorre_rede()
 
 estacoes = []
 rede.retorna_estacoes(estacoes)
+# 7h = 420 minutos
+# 23h = 1380 minutos
 with open("trafego.txt", "w") as trafego:
-    for clock in range(1, 1000):
+    for minute in range(420, 1380):
         for estacao in estacoes:
-            for i in range(len(estacao[0].behavior)):
-                if (clock % estacao[0].behavior[i]["clock"] == 0):
-                    estacao[0].saveReq(estacao[0].behavior[i]["dest"], estacao[1], trafego)
+            dest = estacao[0].user_profile.getDestination(minute)
+            if dest:
+                estacao[0].saveReq(dest, estacao[1], trafego)
