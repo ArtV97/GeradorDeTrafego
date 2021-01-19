@@ -17,7 +17,6 @@ class Estacao():
         else:
             self.ttl = 64
         self.user_agent = user_agent
-        self.behavior = behavior
         self.user_profile = UserProfile()
         self.ip = None
 
@@ -38,7 +37,12 @@ class Estacao():
     ##                                                           seq=syn_ack[TCP].ack, ack=syn_ack[TCP].seq + 1,
     ##                                                           flags='A') / getStr
     ##    send(req)
-
-    def saveReq(self, ipDest, ttlDif, arq):
-        a = self.ip + " >> " + ipDest + ";" + str(self.ttl - ttlDif) + ";\"" + self.user_agent + "\"\n"
-        arq.write(a)
+    
+    # timestamp;ttl;ip;User_Agent;Hash(User_Agent)
+    def saveReq(self, ipDest, ttlDif, arq, timestamp, userAgentHash):
+        line = timestamp + ";"
+        line += ipDest + ";"
+        line += str(self.ttl - ttlDif) + ";"
+        line += "\"" + self.user_agent + "\";"
+        line += str(userAgentHash) + "\n"
+        arq.write(line)

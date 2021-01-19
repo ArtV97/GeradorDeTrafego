@@ -1,6 +1,8 @@
 from Estacao import Estacao, System
 from Nat import Nat
+from userAgentUtils import load_user_agents, check_user_agent_dic, att_user_agents_file
 import json
+import datetime
 
 def inicializaRede(obj_rede, ip):
     rede = Nat(ip)
@@ -17,13 +19,22 @@ with open('topologia1.json', 'r') as myfile:
 
 obj = json.loads(data)
 rede = inicializaRede(obj["rede"], obj["public Ip"])
-
+### Estações ###
 estacoes = []
 rede.retorna_estacoes(estacoes)
+### User Agent Control ###
+indice = {} # dicionario de User-agents
+load_user_agents(indice)
+arq = open("user_agents2.txt", "w") # arquivo para os novos user_agents
+
 # 24h = 86400 segundos
 with open("trafego.txt", "w") as trafego:
-    for seconds in range(1, 86401):
+    for seconds in range(86400):
         for estacao in estacoes:
             dest = estacao[0].user_profile.getDestination(seconds)
             if dest:
-                estacao[0].saveReq(dest, estacao[1], trafego)
+                timestamp = str(datetime.date.today()) + " " + str(datetime.timedelta(seconds=seconds))
+                userAgentHash = check_user_agent_dic(estacao[0].user_agent, indice, arq)
+                estacao[0].saveReq(dest, estacao[1], trafego, timestamp, userAgentHash)
+arq.close()
+att_user_agents_file()
