@@ -31,14 +31,27 @@ def behavior1(x):
 def behavior2(x):
     return (sin(x/1000))/2 + 0.5
 
+def behavior3(x): # triangular
+    desloc = 54000
+    if(x >= desloc):
+        ret = 1 - (x - desloc)/3600
+    else:
+        ret = 1 + (x - desloc)/3600
+    if(ret >= 0):
+        return ret
+    else:
+        return 0
+
 def getBehavior(n):
-    if n == 0:
+    if n == 1:
         return behavior1
-    elif n == 1:
+    elif n == 2:
         return behavior2
+    elif n == 3:
+        return behavior3
 
 class UserProfile():
-    def __init__(self, behavior = randint(0,1), destinations = randomDest()):
+    def __init__(self, behavior = randint(1,3), destinations = randomDest()):
         # segunda      i        i       n
         #self.usage = {
         #    "monday": {"morning": 1, "afternoon": None, "night": None},
@@ -60,7 +73,7 @@ class UserProfile():
         return None
 
 if __name__ == "__main__":
-    profile = UserProfile()
+    profile = UserProfile(3)
     for i in range(86400):
         v = profile.behavior(i)
-        print(v)
+        print("seconds: {} probabilitie: {}".format(i, v))
