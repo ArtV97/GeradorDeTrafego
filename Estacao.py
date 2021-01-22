@@ -10,19 +10,15 @@ class System(Enum):
 
 
 class Estacao():
-    def __init__(self, system, user_agent, behavior):
+    def __init__(self, system, user_agent, user):
         self.system = system
         if self.system is System.Windows:
             self.ttl = 128
         else:
             self.ttl = 64
         self.user_agent = user_agent
-        self.user_profile = UserProfile()
+        self.user_profile = UserProfile(user["behavior"], user["destinations"])
         self.ip = None
-
-    def gerar_pacote(self):
-        # gera pacote
-        return {"system": self.system.name, "Ip": self.ip, "user agent": self.user_agent, "ttl": self.ttl}
 
     ## def sendReq (self, ttldif, dest):
     ##    syn = IP(dst=dest, ttl=(self.ttl-ttldif), id=37) / TCP(dport=80, flags='S')
@@ -38,11 +34,11 @@ class Estacao():
     ##                                                           flags='A') / getStr
     ##    send(req)
     
-    # timestamp;ttl;ip;User_Agent;Hash(User_Agent)
+    # timestamp;ttl;ip;Hash(User_Agent);User_Agent
     def saveReq(self, ipDest, ttlDif, arq, timestamp, userAgentHash):
         line = timestamp + ";"
         line += ipDest + ";"
         line += str(self.ttl - ttlDif) + ";"
-        line += "\"" + self.user_agent + "\";"
-        line += str(userAgentHash) + "\n"
+        line += str(userAgentHash)
+        line += "\"" + self.user_agent + "\"\n"
         arq.write(line)

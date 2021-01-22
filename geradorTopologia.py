@@ -10,9 +10,7 @@ class System(Enum):
 # GLOBALS
 MAX_HEIGHT = 5 # altura máxima da topologia
 PERCENT = 60 # os itens de uma subrede tem este valor % de chance de ser uma estação
-SMALL_FLOW = [10, 25] # limites inferior e superior para o clock se o fluxo for small
-MEDIUM_FLOW = [5, 10] # limites inferior e superior para o clock se o fluxo for medium
-INTENSE_FLOW = [2, 5] # limites inferior e superior para o clock se o fluxo for intense
+NUMBER_OF_BEHAVIORS = 3 # numero de comportamentos de usuários existentes em UserProfile.py
 
 # 1 : user agent Windows
 # 2 : user agent Linux
@@ -48,29 +46,23 @@ def geraDest(maxDestines):
         stationDestines.append(dest.pop(randint(0, len(dest) - 1)))
     return stationDestines
 
-def geraBehavior(maxDestines, flow):
-    behavior = []
-    stationDestines = geraDest(maxDestines)
-    while len(stationDestines) > 0:
-        if(flow == "s"):
-            clock = randint(SMALL_FLOW[0], SMALL_FLOW[1])
-        elif(flow == "m"):
-            clock = randint(MEDIUM_FLOW[0], MEDIUM_FLOW[1])
-        else:
-            clock = randint(INTENSE_FLOW[0], INTENSE_FLOW[1])
-        behavior.append({"dest": stationDestines.pop(), "clock": clock})
-    return behavior
+def geraUser(maxDestines):
+    user = {
+        "behavior": randint(1,NUMBER_OF_BEHAVIORS),
+        "destinations": geraDest(maxDestines)
+    }
+    return user
 
-def geraEstacao(maxDestines, flow, id = "0"):
+def geraEstacao(maxDestines, id = "0"):
     device = randint(1, 3)
     return {
-            "Device": str(device),
+            "Device": device,
             "id": id,
             "User Agent": user_agent[str(device)],
-            "behavior": geraBehavior(maxDestines, flow)
+            "user": geraUser(maxDestines)
             }
 
-def geraSubrede(maxItens, maxDestines, flow, prefix = "", height = 0):
+def geraSubrede(maxItens, maxDestines, prefix = "", height = 0):
     subrede = []
     numberOfItens = randint(1, maxItens)
     while len(subrede) < numberOfItens:
@@ -79,9 +71,9 @@ def geraSubrede(maxItens, maxDestines, flow, prefix = "", height = 0):
             subrede.append(
                 {"Device": "N",
                 "id": id,
-                "subrede": geraSubrede(maxItens, maxDestines, flow, id + ".", height + 1)})
+                "subrede": geraSubrede(maxItens, maxDestines, id + ".", height + 1)})
         else:
-            subrede.append(geraEstacao(maxDestines, flow, id ))
+            subrede.append(geraEstacao(maxDestines, id ))
     return subrede
 
 def resumo_topologia(topologia, summaryFile, layer = 0, subredeId = ""):
@@ -109,9 +101,8 @@ if __name__ == '__main__':
     import sys, getopt, os
     maxItens = None
     maxDestines = None
-    flow = None
     try:
-        opts, args = getopt.getopt(sys.argv[1:],"i:d:f:",["maxItens=","maxDestines=","flow="])
+        opts, args = getopt.getopt(sys.argv[1:],"i:d:",["maxItens=","maxDestines="])
     except getopt.GetoptError as err:
         print(err)
         print('HINT: geradorTopologia.py -i <int> -d <int> -f <char>')
@@ -121,19 +112,16 @@ if __name__ == '__main__':
             maxItens = int(arg)
         elif opt in ("-d", "--maxDestines"):
             maxDestines = int(arg)
-        elif opt in ("-f", "--flow"):
-            flow = arg
-    if(maxItens == None or maxDestines == None or flow == None):
+    if(maxItens == None or maxDestines == None):
         print("Error: Missing Argument")
         print('HINT: geradorTopologia.py -i <int> -d <int> -f <char>')
         print("maxItens(i) = numero maximo de itens de cada subrede")
         print("maxDestines(d) = numero maximo de destinos de cada estacao")
-        print("flow(f) = intensidade do fluxo: s(small), m(medium), i(intense)")
         sys.exit(1)
     
     topologia = {
         "public Ip": "179.181.250.21",
-        "rede": geraSubrede(maxItens, maxDestines, flow)
+        "rede": geraSubrede(maxItens, maxDestines)
     }
 
     fileName = "topologia"
