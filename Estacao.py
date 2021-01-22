@@ -1,6 +1,7 @@
 ##from scapy.all import sr1, send, IP, TCP
 from enum import Enum
 from UserProfile import UserProfile
+from ip_to_nome_lat_lon import site_from_ip_addr
 
 
 class System(Enum):
@@ -33,12 +34,18 @@ class Estacao():
     ##                                                           seq=syn_ack[TCP].ack, ack=syn_ack[TCP].seq + 1,
     ##                                                           flags='A') / getStr
     ##    send(req)
-    
+
     # timestamp;ttl;ip;Hash(User_Agent);User_Agent
     def saveReq(self, ipDest, ttlDif, arq, timestamp, userAgentHash):
+        ip = self.ip.split(".")
+        try:
+            s = site_from_ip_addr(ip)
+        except:
+            print("Error:",ip)
         line = timestamp + ";"
+        line += s[4] + ";" +  s[5] + ";1;" + s[6]+ ";"
         line += ipDest + ";"
-        line += str(self.ttl - ttlDif) + ";"
-        line += str(userAgentHash)
+        line += str(self.ttl - ttlDif)  + ";"
+        line += str(userAgentHash) +";"
         line += "\"" + self.user_agent + "\"\n"
         arq.write(line)
