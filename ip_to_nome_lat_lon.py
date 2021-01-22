@@ -60,6 +60,6 @@ def load_ips(filename):
 
 load_ips("pop_df_lat_lon.txt")
 
-s = site_from_ip("200.130.1.0")
-print("-------------")
-print(s)
+#s = site_from_ip("200.130.1.0")
+#print("-------------")
+#print(s)
