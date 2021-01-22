@@ -1,2 +1,4 @@
 __pycache__
 *txt
+*json
+!pop_df_lat_lon.txt
