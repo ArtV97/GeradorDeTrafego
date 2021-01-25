@@ -24,21 +24,21 @@ user_agent = {
 
 def geraDest(maxDestines):
     dest = [
-        "206.160.74.213",
-        "128.28.110.71",
-        "186.254.39.192",
-        "75.96.27.18",
-        "87.208.74.154",
-        "125.40.123.136",
-        "130.125.99.157",
-        "220.171.28.94",
-        "92.170.228.200",
-        "133.188.176.251",
-        "108.96.103.167",
-        "16.221.8.140",
-        "23.104.179.123",
-        "215.144.163.221",
-        "39.229.161.77"
+        "206.160.74.213.80",
+        "128.28.110.71.80",
+        "186.254.39.192.80",
+        "75.96.27.18.80",
+        "87.208.74.154.80",
+        "125.40.123.136.80",
+        "130.125.99.157.80",
+        "220.171.28.94.80",
+        "92.170.228.200.80",
+        "133.188.176.251.53",
+        "108.96.103.167.53",
+        "16.221.8.140.53",
+        "23.104.179.123.53",
+        "215.144.163.221.53",
+        "39.229.161.77.53"
     ] # 15 destinos diferentes
     stationDestines = []
     numberOfDestines = randint(1, maxDestines)
@@ -81,7 +81,7 @@ def resumo_topologia(topologia, summaryFile, layer = 0, subredeId = ""):
     if (layer == 0):
         print("### Rede ###", file=summaryFile)
     else:
-        
+
         print(indent + "### Subrede Nat {} ###".format(subredeId), file=summaryFile)
     nat_list = []
     line = indent + ""
@@ -118,7 +118,7 @@ if __name__ == '__main__':
         print("maxItens(i) = numero maximo de itens de cada subrede")
         print("maxDestines(d) = numero maximo de destinos de cada estacao")
         sys.exit(1)
-    
+
     topologia = {
         "public Ip": "179.181.250.21",
         "rede": geraSubrede(maxItens, maxDestines)
@@ -133,10 +133,10 @@ if __name__ == '__main__':
     fileName = fileName + str(fileCount) + ".json"
     with open(fileName, "w") as f:
         json.dump(topologia, f, indent=2)
-    
+
     fileName = "resumo"
     fileName = fileName + str(fileCount) + ".txt"
     with open(fileName, "w") as summaryFile:
         resumo_topologia(topologia["rede"], summaryFile)
- 
+
     print("Topologia gerada!")
