@@ -1,6 +1,7 @@
 ##from scapy.all import sr1, send, IP, TCP
 from enum import Enum
 from UserProfile import UserProfile
+from random import randint
 from ip_to_nome_lat_lon import site_from_ip_addr
 
 
@@ -35,17 +36,20 @@ class Estacao():
     ##                                                           flags='A') / getStr
     ##    send(req)
 
-    # timestamp;ttl;ip;Hash(User_Agent);User_Agent
+    # yyyy-mm-dd hh:nn:00; lat; lon; 1; id_cliente; val_ttl; proto; port_dst; id_user_agent;count
     def saveReq(self, ipDest, ttlDif, arq, timestamp, userAgentHash):
         ip = self.ip.split(".")
         try:
             s = site_from_ip_addr(ip)
         except:
             print("Error:",ip)
+        p= randint(6,7)
+        if (p==7):p = p+10
         line = timestamp + ";"
         line += s[4] + ";" +  s[5] + ";1;" + s[6]+ ";"
-        line += ipDest + ";"
         line += str(self.ttl - ttlDif)  + ";"
+        line += str(p)+ ";"
+        line += ipDest.split(".")[4]+";"
         line += str(userAgentHash) +";"
-        line += "\"" + self.user_agent + "\"\n"
+        line += "1\n"
         arq.write(line)
