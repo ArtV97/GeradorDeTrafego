@@ -105,7 +105,7 @@ if __name__ == '__main__':
         opts, args = getopt.getopt(sys.argv[1:],"i:d:",["maxItens=","maxDestines="])
     except getopt.GetoptError as err:
         print(err)
-        print('HINT: geradorTopologia.py -i <int> -d <int> -f <char>')
+        print('HINT: geradorTopologia.py -i <int> -d <int>')
         sys.exit(1)
     for opt, arg in opts:
         if opt in ("-i", "--maxItens"):
@@ -114,7 +114,7 @@ if __name__ == '__main__':
             maxDestines = int(arg)
     if(maxItens == None or maxDestines == None):
         print("Error: Missing Argument")
-        print('HINT: geradorTopologia.py -i <int> -d <int> -f <char>')
+        print('HINT: geradorTopologia.py -i <int> -d <int>')
         print("maxItens(i) = numero maximo de itens de cada subrede")
         print("maxDestines(d) = numero maximo de destinos de cada estacao")
         sys.exit(1)
