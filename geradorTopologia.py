@@ -24,21 +24,21 @@ user_agent = {
 
 def geraDest(maxDestines):
     dest = [
-        "206.160.74.213.80",
-        "128.28.110.71.80",
-        "186.254.39.192.80",
-        "75.96.27.18.80",
-        "87.208.74.154.80",
-        "125.40.123.136.80",
-        "130.125.99.157.80",
-        "220.171.28.94.80",
-        "92.170.228.200.80",
-        "133.188.176.251.53",
-        "108.96.103.167.53",
-        "16.221.8.140.53",
-        "23.104.179.123.53",
-        "215.144.163.221.53",
-        "39.229.161.77.53"
+        "www.google.com",
+        "www.globo.com.br",
+        "www.youtube.com",
+        "www.facebook.com",
+        "www.twitter.com",
+        "www.uff.br",
+        "www.instagram.com",
+        "www.github.com",
+        "www.ligamagic.com.br",
+        "www.nytimes.com",
+        "www.theguardian.com",
+        "www.imdb.com",
+        "www.washingtonpost.com",
+        "www.mercedes-benz.com.br",
+        "www.ferrari.com"
     ] # 15 destinos diferentes
     stationDestines = []
     numberOfDestines = randint(1, maxDestines)

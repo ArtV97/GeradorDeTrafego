@@ -1,5 +1,6 @@
 from Estacao import Estacao, System
 from Nat import Nat
+from Dns import Dns
 from userAgentUtils import load_user_agents, check_user_agent_dic, att_user_agents_file
 import json
 import datetime
@@ -71,27 +72,31 @@ indice = {} # dicionario de User-agents
 load_user_agents(indice)
 arq = open("user_agents2.txt", "w") # arquivo para os novos user_agents
 
+dnsServer = Dns()
+
 # 24h = 86400 segundos
 with open("trafego.txt", "w") as trafego:
     if maxCount == None:
         for seconds in range(begin, end):
             for estacao in estacoes:
-                dest = estacao[0].user_profile.getDestination(seconds)
-                if dest:
+                url = estacao[0].user_profile.getDestination(seconds)
+                if url:
                     timestamp = str(date) + " " + str(datetime.timedelta(seconds=seconds))
                     userAgentHash = check_user_agent_dic(estacao[0].user_agent, indice, arq)
-                    estacao[0].saveReq(dest, estacao[1], trafego, timestamp, userAgentHash)
+                    estacao[0].saveDnsReq(dnsServer, url, estacao[1], trafego, timestamp, userAgentHash)
+                    #estacao[0].saveReq(dest, estacao[1], trafego, timestamp, userAgentHash)
     else:
         count = 0
         while count < maxCount:
             for seconds in range(begin, end):
                 for estacao in estacoes:
-                    dest = estacao[0].user_profile.getDestination(seconds)
-                    if count < maxCount and dest:
+                    url = estacao[0].user_profile.getDestination(seconds)
+                    if count < maxCount and url:
                         timestamp = str(date) + " " + str(datetime.timedelta(seconds=seconds))
                         userAgentHash = check_user_agent_dic(estacao[0].user_agent, indice, arq)
-                        estacao[0].saveReq(dest, estacao[1], trafego, timestamp, userAgentHash)
-                        count += 1
+                        estacao[0].saveDnsReq(dnsServer, url, estacao[1], trafego, timestamp, userAgentHash)
+                        #estacao[0].saveReq(dest, estacao[1], trafego, timestamp, userAgentHash)
+                        count += 2
                     else:
                         break
             date += datetime.timedelta(days=1)
