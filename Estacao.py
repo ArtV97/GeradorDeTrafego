@@ -47,10 +47,10 @@ class Estacao():
             s = site_from_ip_addr(self.ip.split("."))
         except:
             print("Error:",self.ip)
-        # yyyy-mm-dd hh:nn:00;ipDnsServer;lat;lon;1;id_cliente;val_ttl;proto;port_dst;id_user_agent;count
+        # yyyy-mm-dd hh:nn:00;ipDnsServer;lat;lon;1;id_cliente;val_ttl;proto;port_dst;0;count
         line = (
             timestamp + ";" + dnsServer.ip + ";" + s[4] + ";" + s[5] + ";1;" + s[6] + ";" +
-            str(self.ttl - ttlDif)  + ";" + str(proto) + ";" + port + ";" + str(userAgentHash) + ";1\n"
+            str(self.ttl - ttlDif)  + ";" + str(proto) + ";" + port + ";0;1\n"
         )
         arq.write(line)
         self.saveReq(ipDest, ttlDif, arq, timestamp, userAgentHash)
