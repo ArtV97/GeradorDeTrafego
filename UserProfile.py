@@ -1,30 +1,6 @@
 from random import uniform, randint
 from math import sin
 
-def randomDest():
-    dest = [
-        "206.160.74.213",
-        "128.28.110.71",
-        "186.254.39.192",
-        "75.96.27.18",
-        "87.208.74.154",
-        "125.40.123.136",
-        "130.125.99.157",
-        "220.171.28.94",
-        "92.170.228.200",
-        "133.188.176.251",
-        "108.96.103.167",
-        "16.221.8.140",
-        "23.104.179.123",
-        "215.144.163.221",
-        "39.229.161.77"
-    ] # 15 destinos diferentes
-    stationDest = []
-    maxDest = randint(1, 6)
-    while len(stationDest) < maxDest:
-        stationDest.append(dest.pop(randint(0, len(dest) - 1)))
-    return stationDest
-
 def behavior1(x):
     return (-x**2 + 86400*x)/1866000000
 
@@ -51,21 +27,13 @@ def getBehavior(n):
         return behavior3
 
 class UserProfile():
-    def __init__(self, behavior = randint(1,3), destinations = randomDest()):
-        # segunda      i        i       n
-        #self.usage = {
-        #    "monday": {"morning": 1, "afternoon": None, "night": None},
-        #    "tuesday ": {"morning": None, "afternoon": 1, "night": None},
-        #    "wednesday ": {"morning": None, "afternoon": None, "night": 1},
-        #    "thursday ": {"morning": 1, "afternoon": None, "night": None},
-        #    "friday": {"morning": None, "afternoon": 1, "night": None}
-        #    }
+    def __init__(self, behavior, destinations):
         self.behavior = getBehavior(behavior)
         self.destinations = destinations
 
 
     # retorna None se o nao for para enviar o pacote
-    # retorna o destino se for enviar
+    # retorna a URL se for enviar
     def getDestination(self, seconds):
         if uniform(0,1) <= self.behavior(seconds):
             n = randint(0, len(self.destinations) - 1)
